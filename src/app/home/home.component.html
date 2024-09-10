@@ -1,0 +1,66 @@
+<div *ngIf="form != null">
+  <mat-grid-list cols="1" rowHeight="2:1">
+    <form>
+      <mat-grid-list cols="1" rowHeight="10:1">
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Ingresar nùmero</mat-label>
+            <input #numbersInput readonly="true" matInput placeholder="0" />
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+  
+      <mat-grid-list cols="4" rowHeight="5:1"> 
+        <mat-grid-tile>
+          <button mat-button (click)="addNumberToInput(1, numbersInput)">1</button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-button (click)="addNumberToInput(2, numbersInput)" >2</button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-button  (click)="addNumberToInput(3, numbersInput)" >3</button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-button>+</button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-button  (click)="addNumberToInput(4, numbersInput)">4</button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-button  (click)="addNumberToInput(5, numbersInput)">5</button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-button  (click)="addNumberToInput(6, numbersInput)">6</button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-button>-</button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-button  (click)="addNumberToInput(7, numbersInput)">7</button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-button  (click)="addNumberToInput(8, numbersInput)">8</button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-button  (click)="addNumberToInput(9, numbersInput)">9</button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-button>*</button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-button [disabled]="numbersInput.value.length==0" (click)="removeLast(numbersInput)">Borrar</button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-button  (click)="addNumberToInput(0, numbersInput)">0</button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-button>/</button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-button>=</button>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </form>
+  </mat-grid-list>
+</div>
+ 
