@@ -21,7 +21,7 @@
           <button mat-button  (click)="addNumberToInput(3, numbersInput)" >3</button>
         </mat-grid-tile>
         <mat-grid-tile>
-          <button mat-button>+</button>
+          <button mat-button [disabled]="isInOperation" (click)="addFirstNumbber(numbersInput, 0)">+</button>
         </mat-grid-tile>
         <mat-grid-tile>
           <button mat-button  (click)="addNumberToInput(4, numbersInput)">4</button>
@@ -33,7 +33,7 @@
           <button mat-button  (click)="addNumberToInput(6, numbersInput)">6</button>
         </mat-grid-tile>
         <mat-grid-tile>
-          <button mat-button>-</button>
+          <button mat-button [disabled]="isInOperation" (click)="addFirstNumbber(numbersInput, 1)">-</button>
         </mat-grid-tile>
         <mat-grid-tile>
           <button mat-button  (click)="addNumberToInput(7, numbersInput)">7</button>
@@ -45,7 +45,7 @@
           <button mat-button  (click)="addNumberToInput(9, numbersInput)">9</button>
         </mat-grid-tile>
         <mat-grid-tile>
-          <button mat-button>*</button>
+          <button mat-button [disabled]="isInOperation" (click)="addFirstNumbber(numbersInput, 3)">*</button>
         </mat-grid-tile>
         <mat-grid-tile>
           <button mat-button [disabled]="numbersInput.value.length==0" (click)="removeLast(numbersInput)">Borrar</button>
@@ -54,13 +54,12 @@
           <button mat-button  (click)="addNumberToInput(0, numbersInput)">0</button>
         </mat-grid-tile>
         <mat-grid-tile>
-          <button mat-button>/</button>
+          <button mat-button [disabled]="isInOperation" (click)="addFirstNumbber(numbersInput, 2)">/</button>
         </mat-grid-tile>
         <mat-grid-tile>
-          <button mat-button>=</button>
+          <button mat-button (click)="operate(numbersInput)">=</button>
         </mat-grid-tile>
       </mat-grid-list>
     </form>
   </mat-grid-list>
 </div>
- 

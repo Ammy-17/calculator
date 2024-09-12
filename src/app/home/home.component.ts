@@ -6,6 +6,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { CalculatorService } from '../../services/calculator-service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { IOperationModel } from '../../models/operation-model';
+import { OperationEnum } from '../helpers/operation-enum';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -25,13 +30,59 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class HomeComponent implements OnInit {
 
+  private _operation: IOperationModel = {
+    num1: 0,
+    num2: 0
+  }
+  private _currentOperation = OperationEnum.None;
   public form: FormGroup | null = null;
-  public n: any = [];
+  public isInOperation: boolean = false;
 
-  constructor(private readonly _builder: FormBuilder) { }
+  constructor(
+    private readonly _builder: FormBuilder,
+    private readonly _calculatorService: CalculatorService
+  ) { }
 
   ngOnInit() {
     this.form = this._buildForm();
+  }
+
+  public operate(htmlInput: HTMLInputElement): void {
+    if (this._currentOperation === OperationEnum.None)
+      return;
+    this._operation.num2 = Number.parseFloat(htmlInput.value);
+    if (this._currentOperation === OperationEnum.Sum)
+      this.sumSubscription(htmlInput);
+    this.isInOperation = false;
+    this._currentOperation = OperationEnum.None;
+  }
+
+  private sumSubscription(htmlInput: HTMLInputElement): Subscription {
+    return this._calculatorService.sum(this._operation)
+    .subscribe({
+      next: (response) => {
+        if (response.isSuccess) {
+          htmlInput.value = response.value.toString();
+        }
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log(error.error);
+      },
+      complete: () => {
+        console.log("Solicitud finalizada.");
+      }
+    });
+  }
+
+  /**
+   * Agrega el primer número para la operación.
+   * @param htmlInput Input HTML a obtener y resetear el número.
+   */
+  public addFirstNumbber(htmlInput: HTMLInputElement, operation: OperationEnum): void {
+    this._operation.num1 = Number.parseFloat(htmlInput.value);
+    htmlInput.value = "";
+    this.isInOperation = true;
+    this._currentOperation = operation;
   }
 
   /**
