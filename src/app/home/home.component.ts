@@ -51,13 +51,77 @@ export class HomeComponent implements OnInit {
     if (this._currentOperation === OperationEnum.None)
       return;
     this._operation.num2 = Number.parseFloat(htmlInput.value);
-    if (this._currentOperation === OperationEnum.Sum)
-      this.sumSubscription(htmlInput);
+    if (this._currentOperation === OperationEnum.Sum) {
+      this._sumSubscription(htmlInput);
+    }
+    else if (this._currentOperation === OperationEnum.Substract) {
+      this._substractSubscription(htmlInput);
+    }
+    else if (this._currentOperation === OperationEnum.Divide) {
+      this._divideSubscription(htmlInput)
+    }
+    else if (this._currentOperation === OperationEnum.Multiply){
+      this._multiplySubscription(htmlInput)
+    }
+
     this.isInOperation = false;
     this._currentOperation = OperationEnum.None;
   }
 
-  private sumSubscription(htmlInput: HTMLInputElement): Subscription {
+  private _multiplySubscription(htmlImput: HTMLInputElement ): Subscription {
+    return this,this._calculatorService.multiply(this._operation)
+  .subscribe({
+    next: (response) => {
+      if (response.isSuccess) {
+        htmlImput.value = response.value.toString();
+      }
+    },
+    error: (error: HttpErrorResponse) => {
+      console.log(error.error);
+    },
+    complete: () => {
+      console.log("Solicitud finalizada.");
+    }
+  });
+
+}
+
+  private _divideSubscription(htmlInput: HTMLInputElement): Subscription {
+    return this,this._calculatorService.divide(this._operation)
+    .subscribe({
+      next: (response) => {
+        if (response.isSuccess) {
+          htmlInput.value = response.value.toString();
+        }
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log(error.error);
+      },
+      complete: () => {
+        console.log("Solicitud finalizada.");
+      }
+    });
+
+  }
+
+  private _substractSubscription(htmlInput: HTMLInputElement): Subscription {
+    return this._calculatorService.substract(this._operation)
+    .subscribe({
+      next: (response) => {
+        if (response.isSuccess) {
+          htmlInput.value = response.value.toString();
+        }
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log(error.error);
+      },
+      complete: () => {
+        console.log("Solicitud finalizada.");
+      }
+    });
+  }
+
+  private _sumSubscription(htmlInput: HTMLInputElement): Subscription {
     return this._calculatorService.sum(this._operation)
     .subscribe({
       next: (response) => {

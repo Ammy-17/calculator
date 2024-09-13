@@ -20,7 +20,22 @@ export class CalculatorService {
 
   public sum(operation: IOperationModel): Observable<IAppResponseModel<number>> {
     const url: string = `${this._url}sum`;
-    return this._httpClient.post<IAppResponseModel<number>>(url, operation)
+    return this._httpClient.post<IAppResponseModel<number>>(url, operation);
+  }
+
+  public substract(operation: IOperationModel): Observable<IAppResponseModel<number>> {
+    const url: string = `${this._url}substract`;
+    return this._httpClient.post<IAppResponseModel<number>>(url, operation);
+  }
+
+  public divide(operation: IOperationModel): Observable<IAppResponseModel<number>> {
+    const url: string = `${this._url}divide`;
+    return this._httpClient.post<IAppResponseModel<number>>(url, operation);
+  }
+
+  public multiply(operation: IOperationModel): Observable<IAppResponseModel<number>> {
+    const url: string = `${this._url}multiply`;
+    return this._httpClient.post<IAppResponseModel<number>>(url, operation);
   }
 
 }
